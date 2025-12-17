@@ -4,14 +4,14 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/insurance-portal/poc/internal/application/queries"
-	"github.com/insurance-portal/poc/internal/domain"
-	"github.com/insurance-portal/poc/internal/domain/customer"
-	"github.com/insurance-portal/poc/internal/domain/payment"
-	"github.com/insurance-portal/poc/internal/domain/policy"
-	"github.com/insurance-portal/poc/internal/domain/reconciliation"
-	"github.com/insurance-portal/poc/internal/domain/user"
-	"github.com/insurance-portal/poc/internal/interfaces/dto"
+	"github.com/maxwellgithinji/payment-reconciliation-api/application/queries"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/customer"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/payment"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/policy"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/reconciliation"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/user"
+	"github.com/maxwellgithinji/payment-reconciliation-api/interfaces/dto"
 )
 
 // HTTP Response Helpers
@@ -100,9 +100,9 @@ func mapPoliciesToDTOs(policies []*policy.Policy) []dto.PolicyDTO {
 
 func mapPaymentToDTO(p *payment.Payment) dto.PaymentDTO {
 	return dto.PaymentDTO{
-		ID:           p.ID,
-		PolicyID:     p.PolicyID,
-		CustomerID:   p.CustomerID,
+		ID:         p.ID,
+		PolicyID:   p.PolicyID,
+		CustomerID: p.CustomerID,
 		Amount: dto.MoneyDTO{
 			Amount:   p.Amount.Amount,
 			Currency: p.Amount.Currency,
@@ -127,9 +127,9 @@ func mapPaymentsToDTOs(payments []*payment.Payment) []dto.PaymentDTO {
 
 func mapReconciliationToDTO(r *reconciliation.Reconciliation) dto.ReconciliationDTO {
 	return dto.ReconciliationDTO{
-		ID:         r.ID,
-		PaymentID:  r.PaymentID,
-		PolicyID:   r.PolicyID,
+		ID:        r.ID,
+		PaymentID: r.PaymentID,
+		PolicyID:  r.PolicyID,
 		ExpectedAmount: dto.MoneyDTO{
 			Amount:   r.ExpectedAmount.Amount,
 			Currency: r.ExpectedAmount.Currency,
@@ -157,19 +157,19 @@ func mapReconciliationDetailsToDTOs(details []*queries.ReconciliationDetail) []d
 		detailDTO := dto.ReconciliationDetailDTO{
 			Reconciliation: mapReconciliationToDTO(d.Reconciliation),
 		}
-		
+
 		if d.Payment != nil {
 			detailDTO.Payment = mapPaymentToDTO(d.Payment)
 		}
-		
+
 		if d.Policy != nil {
 			detailDTO.Policy = mapPolicyToDTO(d.Policy)
 		}
-		
+
 		if d.Customer != nil {
 			detailDTO.Customer = mapCustomerToDTO(d.Customer)
 		}
-		
+
 		dtos[i] = detailDTO
 	}
 	return dtos

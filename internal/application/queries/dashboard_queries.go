@@ -4,10 +4,10 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain/customer"
-	"github.com/insurance-portal/poc/internal/domain/payment"
-	"github.com/insurance-portal/poc/internal/domain/policy"
-	"github.com/insurance-portal/poc/internal/domain/reconciliation"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/customer"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/payment"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/policy"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/reconciliation"
 )
 
 // PaymentTrackingDashboardQuery represents a query for the payment tracking dashboard
@@ -15,17 +15,17 @@ type PaymentTrackingDashboardQuery struct{}
 
 // PaymentTrackingDashboard represents the dashboard data
 type PaymentTrackingDashboard struct {
-	TotalPolicies       int
-	ActivePolicies      int
-	LapsedPolicies      int
-	PaidCount           int
-	DueCount            int
-	OverdueCount        int
-	TotalPremiumDue     int64
-	TotalPremiumPaid    int64
-	RecentPayments      []*payment.Payment
-	OverduePolicies     []*policy.Policy
-	UnreconciledCount   int
+	TotalPolicies     int
+	ActivePolicies    int
+	LapsedPolicies    int
+	PaidCount         int
+	DueCount          int
+	OverdueCount      int
+	TotalPremiumDue   int64
+	TotalPremiumPaid  int64
+	RecentPayments    []*payment.Payment
+	OverduePolicies   []*policy.Policy
+	UnreconciledCount int
 }
 
 // PaymentTrackingDashboardHandler handles dashboard queries
@@ -73,7 +73,7 @@ func (h *PaymentTrackingDashboardHandler) Handle(query PaymentTrackingDashboardQ
 		switch pol.Status {
 		case policy.PolicyStatusActive:
 			activePolicies++
-			
+
 			// Check payment status
 			if pol.IsPaymentOverdue() {
 				overdueCount++
@@ -82,7 +82,7 @@ func (h *PaymentTrackingDashboardHandler) Handle(query PaymentTrackingDashboardQ
 			} else if pol.NextPaymentDue.After(now) {
 				dueCount++
 			}
-			
+
 		case policy.PolicyStatusLapsed:
 			lapsedPolicies++
 		}
@@ -130,13 +130,13 @@ type ReconciliationReportQuery struct {
 
 // ReconciliationReport represents the reconciliation report data
 type ReconciliationReport struct {
-	TotalReconciliations    int
-	AutoReconciled          int
-	ManuallyReconciled      int
-	RequiringReview         int
-	TotalMatched            int64
-	TotalUnmatched          int64
-	Reconciliations         []*ReconciliationDetail
+	TotalReconciliations int
+	AutoReconciled       int
+	ManuallyReconciled   int
+	RequiringReview      int
+	TotalMatched         int64
+	TotalUnmatched       int64
+	Reconciliations      []*ReconciliationDetail
 }
 
 // ReconciliationDetail provides detailed reconciliation information

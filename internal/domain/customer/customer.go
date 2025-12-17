@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain"
 )
 
 var (
@@ -40,8 +40,8 @@ type Address struct {
 type CustomerStatus string
 
 const (
-	CustomerStatusActive   CustomerStatus = "active"
-	CustomerStatusInactive CustomerStatus = "inactive"
+	CustomerStatusActive    CustomerStatus = "active"
+	CustomerStatusInactive  CustomerStatus = "inactive"
 	CustomerStatusSuspended CustomerStatus = "suspended"
 )
 
@@ -126,12 +126,12 @@ func (c *Customer) FullName() string {
 func (c *Customer) Age() int {
 	now := time.Now()
 	age := now.Year() - c.DateOfBirth.Year()
-	
+
 	if now.Month() < c.DateOfBirth.Month() ||
 		(now.Month() == c.DateOfBirth.Month() && now.Day() < c.DateOfBirth.Day()) {
 		age--
 	}
-	
+
 	return age
 }
 

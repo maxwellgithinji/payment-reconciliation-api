@@ -5,26 +5,26 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain"
-	"github.com/insurance-portal/poc/internal/domain/payment"
-	"github.com/insurance-portal/poc/internal/domain/policy"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/payment"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/policy"
 )
 
 // ReconciliationStatus represents the status of a reconciliation attempt
 type ReconciliationStatus string
 
 const (
-	ReconciliationStatusMatched    ReconciliationStatus = "matched"
-	ReconciliationStatusUnmatched  ReconciliationStatus = "unmatched"
-	ReconciliationStatusPartial    ReconciliationStatus = "partial"
-	ReconciliationStatusDisputed   ReconciliationStatus = "disputed"
+	ReconciliationStatusMatched   ReconciliationStatus = "matched"
+	ReconciliationStatusUnmatched ReconciliationStatus = "unmatched"
+	ReconciliationStatusPartial   ReconciliationStatus = "partial"
+	ReconciliationStatusDisputed  ReconciliationStatus = "disputed"
 )
 
 // MatchResult represents the outcome of a reconciliation match
 type MatchResult string
 
 const (
-	MatchResultPerfect      MatchResult = "perfect"       // Exact match
+	MatchResultPerfect        MatchResult = "perfect"         // Exact match
 	MatchResultAmountMismatch MatchResult = "amount_mismatch" // Wrong amount
 	MatchResultPolicyMismatch MatchResult = "policy_mismatch" // Wrong policy
 	MatchResultNoMatch        MatchResult = "no_match"        // No match found
@@ -32,21 +32,21 @@ const (
 
 // Reconciliation represents a payment reconciliation record
 type Reconciliation struct {
-	ID              uuid.UUID
-	PaymentID       uuid.UUID
-	PolicyID        uuid.UUID
-	ExpectedAmount  domain.Money
-	ReceivedAmount  domain.Money
-	Status          ReconciliationStatus
-	MatchResult     MatchResult
-	ReconciledAt    time.Time
-	Notes           string
-	Variance        domain.Money // Difference between expected and received
-	AutoReconciled  bool         // True if automatically reconciled
+	ID               uuid.UUID
+	PaymentID        uuid.UUID
+	PolicyID         uuid.UUID
+	ExpectedAmount   domain.Money
+	ReceivedAmount   domain.Money
+	Status           ReconciliationStatus
+	MatchResult      MatchResult
+	ReconciledAt     time.Time
+	Notes            string
+	Variance         domain.Money // Difference between expected and received
+	AutoReconciled   bool         // True if automatically reconciled
 	ManuallyReviewed bool
-	ReviewedBy      *string
-	ReviewedAt      *time.Time
-	AuditInfo       domain.AuditInfo
+	ReviewedBy       *string
+	ReviewedAt       *time.Time
+	AuditInfo        domain.AuditInfo
 }
 
 // ReconciliationRule defines rules for automatic reconciliation
@@ -119,7 +119,7 @@ func (r *Reconciliation) AttemptAutoReconciliation(rule ReconciliationRule) erro
 
 	// Check if within allowed variance
 	variancePercentage := calculateVariancePercentage(r.ExpectedAmount.Amount, r.ReceivedAmount.Amount)
-	
+
 	if variancePercentage <= rule.AllowedVariancePercentage {
 		r.Status = ReconciliationStatusMatched
 		r.MatchResult = MatchResultPerfect
@@ -148,7 +148,7 @@ func (r *Reconciliation) ManualReview(reviewedBy string, status ReconciliationSt
 	r.Status = status
 	r.Notes = notes
 	r.AuditInfo.UpdatedNow(reviewedBy)
-	
+
 	return nil
 }
 
@@ -167,10 +167,10 @@ func (r *Reconciliation) IsFullyReconciled() bool {
 
 // RequiresManualReview checks if manual review is needed
 func (r *Reconciliation) RequiresManualReview() bool {
-	return (r.Status == ReconciliationStatusUnmatched || 
-	        r.Status == ReconciliationStatusPartial ||
-	        r.Status == ReconciliationStatusDisputed) && 
-	       !r.ManuallyReviewed
+	return (r.Status == ReconciliationStatusUnmatched ||
+		r.Status == ReconciliationStatusPartial ||
+		r.Status == ReconciliationStatusDisputed) &&
+		!r.ManuallyReviewed
 }
 
 // GetVarianceAmount returns the absolute variance amount
@@ -185,10 +185,10 @@ func calculateVariancePercentage(expected, received int64) float64 {
 	if expected == 0 {
 		return 100.0
 	}
-	
+
 	variance := float64(received - expected)
 	percentage := (variance / float64(expected)) * 100
-	
+
 	if percentage < 0 {
 		return -percentage
 	}

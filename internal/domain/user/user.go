@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain"
 )
 
 // Role represents user roles in the system

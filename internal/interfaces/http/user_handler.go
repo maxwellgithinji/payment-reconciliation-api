@@ -8,9 +8,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/application/commands"
-	"github.com/insurance-portal/poc/internal/domain/user"
-	"github.com/insurance-portal/poc/internal/interfaces/dto"
+	"github.com/maxwellgithinji/payment-reconciliation-api/application/commands"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/user"
+	"github.com/maxwellgithinji/payment-reconciliation-api/interfaces/dto"
 )
 
 // UserHandler handles user-related HTTP requests

@@ -5,44 +5,44 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain"
 )
 
 // PaymentStatus represents the current state of a payment
 type PaymentStatus string
 
 const (
-	PaymentStatusPending    PaymentStatus = "pending"
-	PaymentStatusCompleted  PaymentStatus = "completed"
-	PaymentStatusFailed     PaymentStatus = "failed"
-	PaymentStatusRefunded   PaymentStatus = "refunded"
+	PaymentStatusPending   PaymentStatus = "pending"
+	PaymentStatusCompleted PaymentStatus = "completed"
+	PaymentStatusFailed    PaymentStatus = "failed"
+	PaymentStatusRefunded  PaymentStatus = "refunded"
 )
 
 // PaymentMethod represents how the payment was made
 type PaymentMethod string
 
 const (
-	PaymentMethodMobileMoney PaymentMethod = "mobile_money"
-	PaymentMethodCard        PaymentMethod = "card"
+	PaymentMethodMobileMoney  PaymentMethod = "mobile_money"
+	PaymentMethodCard         PaymentMethod = "card"
 	PaymentMethodBankTransfer PaymentMethod = "bank_transfer"
 )
 
 // Payment represents a payment transaction
 type Payment struct {
-	ID                  uuid.UUID
-	PolicyID            uuid.UUID
-	CustomerID          uuid.UUID
-	Amount              domain.Money
-	PaymentMethod       PaymentMethod
-	Status              PaymentStatus
-	TransactionID       string // External payment provider transaction ID
-	PaymentReference    string // Internal reference number
-	PaymentDate         time.Time
-	ProcessedAt         *time.Time
-	FailureReason       string
-	IsReconciled        bool
-	ReconciliationID    *uuid.UUID
-	AuditInfo           domain.AuditInfo
+	ID               uuid.UUID
+	PolicyID         uuid.UUID
+	CustomerID       uuid.UUID
+	Amount           domain.Money
+	PaymentMethod    PaymentMethod
+	Status           PaymentStatus
+	TransactionID    string // External payment provider transaction ID
+	PaymentReference string // Internal reference number
+	PaymentDate      time.Time
+	ProcessedAt      *time.Time
+	FailureReason    string
+	IsReconciled     bool
+	ReconciliationID *uuid.UUID
+	AuditInfo        domain.AuditInfo
 }
 
 // NewPayment creates a new payment transaction

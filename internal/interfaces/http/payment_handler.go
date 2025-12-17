@@ -6,10 +6,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/application/commands"
-	"github.com/insurance-portal/poc/internal/application/queries"
-	"github.com/insurance-portal/poc/internal/domain/reconciliation"
-	"github.com/insurance-portal/poc/internal/interfaces/dto"
+	"github.com/maxwellgithinji/payment-reconciliation-api/application/commands"
+	"github.com/maxwellgithinji/payment-reconciliation-api/application/queries"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/reconciliation"
+	"github.com/maxwellgithinji/payment-reconciliation-api/interfaces/dto"
 )
 
 // PaymentHandler handles payment-related HTTP requests

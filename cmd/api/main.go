@@ -10,13 +10,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/insurance-portal/poc/internal/application/commands"
-	"github.com/insurance-portal/poc/internal/application/queries"
-	"github.com/insurance-portal/poc/internal/domain/reconciliation"
-	httpHandler "github.com/insurance-portal/poc/internal/interfaces/http"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/reconciliation"
 	// Import infrastructure implementations when ready
-	// "github.com/insurance-portal/poc/internal/infrastructure/persistence/postgres"
-	// "github.com/insurance-portal/poc/internal/infrastructure/auth"
+	// "github.com/maxwellgithinji/payment-reconciliation-api/infrastructure/persistence/postgres"
+	// "github.com/maxwellgithinji/payment-reconciliation-api/infrastructure/auth"
 )
 
 const (
@@ -33,7 +30,7 @@ func main() {
 	// Initialize repositories (mock for POC)
 	// In production, these would be actual database implementations
 	log.Println("Initializing repositories...")
-	
+
 	// TODO: Initialize PostgreSQL connection and repositories
 	// db := initDatabase()
 	// userRepo := postgres.NewUserRepository(db)
@@ -41,21 +38,21 @@ func main() {
 	// policyRepo := postgres.NewPolicyRepository(db)
 	// paymentRepo := postgres.NewPaymentRepository(db)
 	// reconciliationRepo := postgres.NewReconciliationRepository(db)
-	
+
 	// For POC, using in-memory repositories (to be implemented)
 	// userRepo := memory.NewUserRepository()
 	// customerRepo := memory.NewCustomerRepository()
 	// policyRepo := memory.NewPolicyRepository()
 	// paymentRepo := memory.NewPaymentRepository()
 	// reconciliationRepo := memory.NewReconciliationRepository()
-	
+
 	log.Println("Note: Using placeholder repositories - implement actual persistence layer")
 
 	// Initialize domain services
 	log.Println("Initializing domain services...")
 	reconRule := reconciliation.DefaultReconciliationRule()
 	reconService := reconciliation.NewReconciliationService(reconRule)
-	
+
 	// TODO: Initialize user service
 	// userService := auth.NewUserService()
 
@@ -106,7 +103,7 @@ func main() {
 		log.Printf("Server starting on port %s", port)
 		log.Printf("Dashboard: http://localhost:%s/api/v1/dashboard", port)
 		log.Printf("Health check: http://localhost:%s/health", port)
-		
+
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Failed to start server: %v", err)
 		}

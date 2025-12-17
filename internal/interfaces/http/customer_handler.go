@@ -6,8 +6,7 @@ import (
 	"strings"
 
 	"github.com/golang-jwt/jwt/v5"
-	"github.com/insurance-portal/poc/internal/domain/user"
-	"github.com/insurance-portal/poc/internal/interfaces/dto"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/user"
 )
 
 // AuthMiddleware handles authentication and authorization

@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain/user"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/user"
 )
 
 // CreateUserCommand represents a command to create a new user

@@ -4,10 +4,10 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain"
-	"github.com/insurance-portal/poc/internal/domain/payment"
-	"github.com/insurance-portal/poc/internal/domain/policy"
-	"github.com/insurance-portal/poc/internal/domain/reconciliation"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/payment"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/policy"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/reconciliation"
 )
 
 // ProcessPaymentCommand represents a command to process a payment
@@ -196,20 +196,20 @@ func (h *ManualReconciliationHandler) Handle(cmd ManualReconciliationCommand) er
 
 // RefundPaymentCommand represents a command to refund a payment
 type RefundPaymentCommand struct {
-	PaymentID uuid.UUID
+	PaymentID  uuid.UUID
 	RefundedBy string
 }
 
 // RefundPaymentHandler handles payment refunds
 type RefundPaymentHandler struct {
-	paymentRepo payment.Repository
+	paymentRepo    payment.Repository
 	paymentGateway payment.Gateway
 }
 
 // NewRefundPaymentHandler creates a new RefundPaymentHandler
 func NewRefundPaymentHandler(paymentRepo payment.Repository, paymentGateway payment.Gateway) *RefundPaymentHandler {
 	return &RefundPaymentHandler{
-		paymentRepo: paymentRepo,
+		paymentRepo:    paymentRepo,
 		paymentGateway: paymentGateway,
 	}
 }

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain"
 )
 
 // PaymentFrequency defines how often premium payments are due
@@ -81,7 +81,7 @@ func (p *Policy) RecordPayment(paidAt time.Time, updatedBy string) error {
 	// Update next payment due date
 	p.calculateNextPaymentDue()
 	p.AuditInfo.UpdatedNow(updatedBy)
-	
+
 	return nil
 }
 
@@ -140,7 +140,7 @@ func (p *Policy) DaysUntilPayment() int {
 // calculateNextPaymentDue calculates the next payment due date
 func (p *Policy) calculateNextPaymentDue() {
 	now := time.Now()
-	
+
 	// If policy hasn't started yet, next payment is start date
 	if now.Before(p.StartDate) {
 		p.NextPaymentDue = p.StartDate

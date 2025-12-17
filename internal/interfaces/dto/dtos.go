@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain/payment"
-	"github.com/insurance-portal/poc/internal/domain/policy"
-	"github.com/insurance-portal/poc/internal/domain/user"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/payment"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/policy"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/user"
 )
 
 // Authentication DTOs
@@ -51,17 +51,17 @@ type UserDTO struct {
 // Customer DTOs
 
 type CreateCustomerRequest struct {
-	FirstName   string    `json:"first_name"`
-	LastName    string    `json:"last_name"`
-	Email       string    `json:"email"`
-	PhoneNumber string    `json:"phone_number"`
-	DateOfBirth time.Time `json:"date_of_birth"`
+	FirstName   string     `json:"first_name"`
+	LastName    string     `json:"last_name"`
+	Email       string     `json:"email"`
+	PhoneNumber string     `json:"phone_number"`
+	DateOfBirth time.Time  `json:"date_of_birth"`
 	Address     AddressDTO `json:"address"`
 }
 
 type UpdateCustomerRequest struct {
-	Email       string     `json:"email,omitempty"`
-	PhoneNumber string     `json:"phone_number,omitempty"`
+	Email       string      `json:"email,omitempty"`
+	PhoneNumber string      `json:"phone_number,omitempty"`
 	Address     *AddressDTO `json:"address,omitempty"`
 }
 
@@ -90,13 +90,13 @@ type CustomerDTO struct {
 // Policy DTOs
 
 type CreatePolicyRequest struct {
-	CustomerID       uuid.UUID              `json:"customer_id"`
-	ProductName      string                 `json:"product_name"`
-	PremiumAmount    int64                  `json:"premium_amount"`
-	Currency         string                 `json:"currency"`
+	CustomerID       uuid.UUID               `json:"customer_id"`
+	ProductName      string                  `json:"product_name"`
+	PremiumAmount    int64                   `json:"premium_amount"`
+	Currency         string                  `json:"currency"`
 	PaymentFrequency policy.PaymentFrequency `json:"payment_frequency"`
-	StartDate        time.Time              `json:"start_date"`
-	DurationMonths   int                    `json:"duration_months"`
+	StartDate        time.Time               `json:"start_date"`
+	DurationMonths   int                     `json:"duration_months"`
 }
 
 type PolicyDTO struct {
@@ -116,20 +116,20 @@ type PolicyDTO struct {
 }
 
 type PolicyDetailDTO struct {
-	Policy   PolicyDTO     `json:"policy"`
-	Customer CustomerDTO   `json:"customer"`
-	Payments []PaymentDTO  `json:"payments"`
+	Policy   PolicyDTO    `json:"policy"`
+	Customer CustomerDTO  `json:"customer"`
+	Payments []PaymentDTO `json:"payments"`
 }
 
 // Payment DTOs
 
 type ProcessPaymentRequest struct {
-	PolicyID      uuid.UUID            `json:"policy_id"`
-	CustomerID    uuid.UUID            `json:"customer_id"`
-	Amount        int64                `json:"amount"`
-	Currency      string               `json:"currency"`
+	PolicyID      uuid.UUID             `json:"policy_id"`
+	CustomerID    uuid.UUID             `json:"customer_id"`
+	Amount        int64                 `json:"amount"`
+	Currency      string                `json:"currency"`
 	PaymentMethod payment.PaymentMethod `json:"payment_method"`
-	TransactionID string               `json:"transaction_id"`
+	TransactionID string                `json:"transaction_id"`
 }
 
 type PaymentDTO struct {
@@ -154,17 +154,17 @@ type MoneyDTO struct {
 // Dashboard DTOs
 
 type DashboardResponse struct {
-	TotalPolicies     int           `json:"total_policies"`
-	ActivePolicies    int           `json:"active_policies"`
-	LapsedPolicies    int           `json:"lapsed_policies"`
-	PaidCount         int           `json:"paid_count"`
-	DueCount          int           `json:"due_count"`
-	OverdueCount      int           `json:"overdue_count"`
-	TotalPremiumDue   MoneyDTO      `json:"total_premium_due"`
-	TotalPremiumPaid  MoneyDTO      `json:"total_premium_paid"`
-	RecentPayments    []PaymentDTO  `json:"recent_payments"`
-	OverduePolicies   []PolicyDTO   `json:"overdue_policies"`
-	UnreconciledCount int           `json:"unreconciled_count"`
+	TotalPolicies     int          `json:"total_policies"`
+	ActivePolicies    int          `json:"active_policies"`
+	LapsedPolicies    int          `json:"lapsed_policies"`
+	PaidCount         int          `json:"paid_count"`
+	DueCount          int          `json:"due_count"`
+	OverdueCount      int          `json:"overdue_count"`
+	TotalPremiumDue   MoneyDTO     `json:"total_premium_due"`
+	TotalPremiumPaid  MoneyDTO     `json:"total_premium_paid"`
+	RecentPayments    []PaymentDTO `json:"recent_payments"`
+	OverduePolicies   []PolicyDTO  `json:"overdue_policies"`
+	UnreconciledCount int          `json:"unreconciled_count"`
 }
 
 // Reconciliation DTOs
@@ -175,28 +175,28 @@ type ManualReconciliationRequest struct {
 }
 
 type ReconciliationDTO struct {
-	ID              uuid.UUID `json:"id"`
-	PaymentID       uuid.UUID `json:"payment_id"`
-	PolicyID        uuid.UUID `json:"policy_id"`
-	ExpectedAmount  MoneyDTO  `json:"expected_amount"`
-	ReceivedAmount  MoneyDTO  `json:"received_amount"`
-	Variance        MoneyDTO  `json:"variance"`
-	Status          string    `json:"status"`
-	MatchResult     string    `json:"match_result"`
-	AutoReconciled  bool      `json:"auto_reconciled"`
-	RequiresReview  bool      `json:"requires_review"`
-	Notes           string    `json:"notes"`
-	ReconciledAt    time.Time `json:"reconciled_at"`
+	ID             uuid.UUID `json:"id"`
+	PaymentID      uuid.UUID `json:"payment_id"`
+	PolicyID       uuid.UUID `json:"policy_id"`
+	ExpectedAmount MoneyDTO  `json:"expected_amount"`
+	ReceivedAmount MoneyDTO  `json:"received_amount"`
+	Variance       MoneyDTO  `json:"variance"`
+	Status         string    `json:"status"`
+	MatchResult    string    `json:"match_result"`
+	AutoReconciled bool      `json:"auto_reconciled"`
+	RequiresReview bool      `json:"requires_review"`
+	Notes          string    `json:"notes"`
+	ReconciledAt   time.Time `json:"reconciled_at"`
 }
 
 type ReconciliationReportResponse struct {
-	TotalReconciliations int                        `json:"total_reconciliations"`
-	AutoReconciled       int                        `json:"auto_reconciled"`
-	ManuallyReconciled   int                        `json:"manually_reconciled"`
-	RequiringReview      int                        `json:"requiring_review"`
-	TotalMatched         MoneyDTO                   `json:"total_matched"`
-	TotalUnmatched       MoneyDTO                   `json:"total_unmatched"`
-	Reconciliations      []ReconciliationDetailDTO  `json:"reconciliations"`
+	TotalReconciliations int                       `json:"total_reconciliations"`
+	AutoReconciled       int                       `json:"auto_reconciled"`
+	ManuallyReconciled   int                       `json:"manually_reconciled"`
+	RequiringReview      int                       `json:"requiring_review"`
+	TotalMatched         MoneyDTO                  `json:"total_matched"`
+	TotalUnmatched       MoneyDTO                  `json:"total_unmatched"`
+	Reconciliations      []ReconciliationDetailDTO `json:"reconciliations"`
 }
 
 type ReconciliationDetailDTO struct {

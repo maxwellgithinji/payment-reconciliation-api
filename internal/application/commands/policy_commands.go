@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/insurance-portal/poc/internal/domain"
-	"github.com/insurance-portal/poc/internal/domain/customer"
-	"github.com/insurance-portal/poc/internal/domain/policy"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/customer"
+	"github.com/maxwellgithinji/payment-reconciliation-api/domain/policy"
 )
 
 // CreatePolicyCommand represents a command to create a new policy
@@ -74,7 +74,7 @@ func (h *CreatePolicyHandler) Handle(cmd CreatePolicyCommand) (*policy.Policy, e
 
 // CancelPolicyCommand represents a command to cancel a policy
 type CancelPolicyCommand struct {
-	PolicyID  uuid.UUID
+	PolicyID   uuid.UUID
 	CanceledBy string
 }
 
