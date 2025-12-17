@@ -1,4 +1,4 @@
-module github.com/maxwellgithinji/insurance-portal-poc
+module github.com/maxwellgithinji/payment-reconciliation-api
 
 go 1.21
 
